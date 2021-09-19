@@ -3,48 +3,49 @@ from rich.console import Console
 from rich.text import Text
 console = Console()
 
-def Display_available_RAM():
-    ram = os.popen("vmstat -s").read()
-    console.print(Text("Available RAM :",style="bold blue"))
-    console.print(Text(ram,style="bold cyan"))
+def rich_func(res):
+	console.print(Text(res,style="bold blue"))
 
-def Display_Load_avearge():
-    data = os.popen("cat /proc/loadavg").read()
-    console.print(Text("Load Average :",style="bold blue"))
-    console.print(Text(data,style="bold cyan"))
+def Dis_avail_ram():
+	ram = os.popen("cat /proc/meminfo").read()
+	rich_func(ram)
+	
 
-def Display_Hostname_details():
-    data = os.popen("hostnamectl status").read()
-    console.print(Text("Hostname Details :",style="bold blue"))
-    console.print(Text(data,style="bold cyan"))
+def Dis_load_avearge():
+	res = os.popen("cat /proc/loadavg").read()
+	rich_func(res)
+	
 
+def Dis_hostname_details():
+	res = os.popen("hostnamectl status").read()
+	rich_func(res)
+	
 
-def Display_All_process_count():
-    data = os.popen("ps -aux | wc -l").read()
-    console.print(Text("Process Count :",style="bold blue"))
-    console.print(Text(data,style="bold cyan"))
+def Dis_all_process_count():
+	res = os.popen("ps -a | wc -l").read()
+	rich_func(res)
+	
 
-
-def Display_time():
-    data = os.popen("uptime -s").read()
-    console.print(Text("Present Time :",style="bold blue"))
-    console.print(Text(data,style="bold cyan"))
+def Dis_time():
+	res = os.popen("uptime -s").read()
+	rich_func(res)
+	
 
 
 def main_menu():
-	console.print("1.Display available RAM",style="bold cyan")
-	console.print("2.Display Load avearge",style="bold cyan")
-	console.print("3.Display Hostname details",style="bold cyan")
-	console.print("4.Display All process count",style="bold cyan")
+	console.print("1.Display available Ram",style="bold cyan")
+	console.print("2.Display load avearge",style="bold cyan")
+	console.print("3.Display hostname details",style="bold cyan")
+	console.print("4.Display all process count",style="bold cyan")
 	console.print("5.Display uptime",style="bold cyan")
 	console.print("6.Exit",style="bold cyan")
 
 operations = {
-    "1":Display_available_RAM,
-    "2":Display_Load_avearge,
-    "3":Display_Hostname_details,
-    "4":Display_All_process_count,
-    "5":Display_time
+    "1":Dis_avail_ram,
+    "2":Dis_load_avearge,
+    "3":Dis_hostname_details,
+    "4":Dis_all_process_count,
+    "5":Dis_time
 }
 
 while True:
